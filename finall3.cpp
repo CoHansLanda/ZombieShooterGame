@@ -91,7 +91,7 @@ void intro()
         cout<<endl<<"CONGRATULATIONS YOU JUST KILLED A ZOMBIE"<<endl;
         cout<<"Would you like to practice forward(if you press 'n' you will be sent to the first level.To exit the game press 'e') (y/n/e):";
         cin>>ch;
-        if(ch=='y')
+        if(ch=='n')
         {
             level2();
         }
@@ -620,6 +620,7 @@ int level3()
 }
 int practice()
 {
+    char p_attack;
     G.count=0;
     B.count=0;
     A.count=0;
@@ -644,16 +645,17 @@ int practice()
         cout<<"You will ,for the purposes of this practice session be getting a gun.(with no upper usage limit)"<<endl;
         cout<<"\nEnter attack number(1-80):";
         cin>>p_attack;
-
         cout<<z_attack;
         cout<<endl<<"THIS IS A RANDOM COMPUTER GENERATED NUMBER WHICH WILL CHANGE AFTER EVERY SHOT\n";
+        if(p_attack=='e')
+        {
+            cout<<"\nHI\n";
+            z_health=0;
+            return 0;
+        }
         if((80<p_attack)||(p_attack<0))
         {
             cout<<"Please enter a number between the given range"<<endl;
-        }
-        else if(p_attack=='e')
-        {
-            break;
         }
         if(p_attack==z_attack)//reduce players health
         {
@@ -668,7 +670,6 @@ int practice()
             {
                 z_attack+=9;
             }
-
             if(p_health==0)
             {
                 cout<<endl<<"\nOOH YOU GOT INFECTED";
