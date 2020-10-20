@@ -2,45 +2,65 @@
 #include <string.h>
 #include <stdlib.h>
 using namespace std;
-class Gun
+class Player
 {
     public:
-    int damage=50;
-    int points=2;
-    int count=0;
-    
-    public:
-    void incount()
-    {
-        count++;
-    }
-}G;
-class Bat
-{
-    public:
-    int damage=25;
-    int points=5;
-    int count=0;
-    
-    public:
-    void incount()
-    {
-        count++;
-    }
-}B;
-class Axe
+    string name;
+    int money=100;
+}P;
+class Gun:virtual public Player
 {
     public:
     int damage=40;
-    int points=4;
+    int points=1;
     int count=0;
+    int cost=0;
+    public:
+    void incount()
+    {
+        count++;
+        money=money+10;
+    }
+}G;
+class Bat:virtual public Player
+{
+    public:
+    int damage=25;
+    int points=2;
+    int count=0;
+    int cost=0;
+    
+    public:
+    void incount()
+    {
+        money=money+30;
+        count++;
+    }
+}B;
+class Axe:virtual public Player
+{
+    public:
+    int damage=20;
+    int points=3;
+    int count=0;
+    int cost=0;
     
     public:
     void incount()
     {
         count++;
+        money=money+20;
     }
 }A;
+class Store:public Axe,public Gun,public Bat
+{
+    public:
+    int Nmoney()
+    {
+        money=G.money+A.money+B.money;
+        return money;
+    }
+}S;
 void intro();
 void intro2();
 int level1();
@@ -49,15 +69,168 @@ int practice();
 int level3();
 bool status=false;
 string name;
-int p_health=100,z_health=100,p_attack,z_attack=5,weapon,weapon2;
+int p_health=100,z_health=100,p_attack,z_attack=5,weapon,weapon2,power,money=S.Nmoney();
 int main()
 {
-   
     status= true;
     char ch;
     cout<<"Enter name:";
     cin>>name;
     intro();
+}
+int store()
+{
+    int c;
+    Player P;
+    int ch;
+    cout<<"Welcome to the store "<<P.name<<endl;
+    cout<<"You currently have "<<money<<" bucks left"<<endl;
+    cout<<"1)Axe(Damage="<<A.damage<<"HP\tPoints="<<A.points<<")\n2)Bat(Damage="<<B.damage<<"HP\tpoints="<<B.points<<")\n3)Gun(Damage="<<G.damage<<"HP \tpoints="<<G.points<<")"<<endl;
+    cout<<"Which weapon would you like to work with:"<<endl;
+    cin>>ch;
+    switch(ch)
+    {    
+        case 1:
+            cout<<"Let's work with the axe shall we!"<<endl;
+            cout<<"What would you like to do:"<<endl;
+            cout<<"1)Increase damage\t2)Increase points"<<endl;
+            cout<<"Enter choice:";
+            cin>>c;
+            switch(c)
+            {
+                case 1:
+                    if((money>300)&&(money<400))
+                    {
+                        money-=30;
+                        A.damage=30;
+                        cout<<"New Axe Damage:"<<A.damage<<endl;
+                    }
+                    else if((money>400)&&(money<500))
+                    {
+                        money-=30;
+                        A.damage=40;
+                        cout<<"New Axe Damage:"<<A.damage<<endl;
+                    }
+                    else
+                    {
+                        cout<<"Error"<<endl;
+                    }
+                    
+                break;
+                case 2:
+                    if((money>350)&&(money<400))
+                    {
+                        money-=20;
+                        A.points=3;
+                        cout<<"New Axe points:"<<A.damage<<endl;
+                    }
+                    else if((money>400)&&(money<500))
+                    {
+                        money-=20;
+                        A.damage=5;
+                        cout<<"New Axe points:"<<A.damage<<endl;
+                    }else
+                    {
+                        cout<<"Error"<<endl;
+                    }
+                break;        
+            }
+        break; 
+        
+        case 2:
+            cout<<"Let's work with the bat shall we!"<<endl;
+            cout<<"What would you like to do:"<<endl;
+            cout<<"1)Increase damage\t2)Increase points"<<endl;
+            cout<<"Enter choice:";
+            cin>>c;
+            switch(c)
+            {
+                case 1:
+                    if((money>350)&&(money<400))
+                    {
+                        money-=40;
+                        B.damage=50;
+                        cout<<"New Bat Damage:"<<B.damage<<endl;
+                    }
+                    else if((money>400)&&(money<500))
+                    {
+                        money-=40;
+                        B.damage=60;
+                        cout<<"New Bat Damage:"<<B.damage<<endl;
+                    }else
+                    {
+                        cout<<"Error"<<endl;
+                    }
+                    break;
+                case 2:
+                    if((money>350)&&(money<400))
+                    {
+                        money-=30;
+                        B.points=4;
+                        cout<<"New Bat points:"<<B.damage<<endl;
+                    }
+                    else if((money>400)&&(money<500))
+                    {
+                        money-=30;
+                        B.damage=5;
+                        cout<<"New Bat points:"<<B.damage<<endl;
+                    }else
+                    {
+                        cout<<"Error"<<endl;
+                    }
+                    break;
+                    
+            }
+        break; 
+        case 3:
+            cout<<"Let's work with the gun shall we!"<<endl;
+            cout<<"What would you like to do:"<<endl;
+            cout<<"1)Increase damage\t2)Increase points"<<endl;
+            cout<<"Enter choice:";
+            cin>>c;
+            switch(c)
+            {
+                case 1:
+                    if((money>350)&&(money<400))
+                    {
+                        G.damage=50;
+                        money-=70;
+                        cout<<"New Gun Damage:"<<G.damage<<endl;
+                    }
+                    else if((money>400)&&(money<500))
+                    {
+                        money-=70;
+                        G.damage=60;
+                        cout<<"New Gun Damage:"<<G.damage<<endl;
+                    }else
+                    {
+                        cout<<"Error"<<endl;
+                    }
+                    break;
+                case 2:
+                    if((money>350)&(money<400))
+                    {
+                        money-=60;
+                        G.points=2;
+                        cout<<"New Gun points:"<<G.points<<endl;
+                    }
+                    else if((money>400)&&(money<500))
+                    {
+                        money-=60;
+                        G.damage=3;
+                        cout<<"New Gun points:"<<G.points<<endl;
+                    }else
+                    {
+                        cout<<"Error"<<endl;
+                    }
+                    break;
+                    
+            }
+            case 4:
+                return 0;
+            break;
+        break;
+    }
 }
 void intro()
 {   
@@ -101,13 +274,34 @@ void intro()
         }
         else
         {
-            cout<<"HOPE TO SEE YOU SOON"<<endl;
-            cout<<"BYE!!!!!"<<endl;
+            practice();
         }
     }
     
     
     
+}
+void intro3()
+{
+    char ch;
+
+    cout<<name<<"!! You killed the level 2 zombies YAY!!!!"<<endl;
+    cout<<"Level 2 zombies have much more health"<<endl;
+    cout<<"The power required to activate a powerup is now 150"<<endl;
+    cout<<"After each hit you need to choose a weapon the weapons will have the same amount of damage and"<<endl;
+    cout<<"\t\t\t===REMEMBER YOU CAN USE=== \n\t\t\t===A GUN ONLY TWICE===\n\t\t\t===A BAT ONLY 4 TIMES===\n\t\t\t===AN AXE ONLY THRICE===="<<endl;
+    cout<<"After attaining the required points you can unlock a power up which will reduce the opponents health by 40%"<<endl;
+    cout<<"Would you like to start (y/n):";
+    cin>>ch;
+    if(ch=='y')
+    {
+        level3();
+    }
+    else
+    {
+        cout<<"HOPE TO SEE YOU SOON"<<endl;
+        cout<<"BYE!!!!!"<<endl;
+    }
 }
 void intro2()
 {
@@ -296,7 +490,8 @@ int level1()
         
     }
     cout<<endl<<"CONGRATULATIONS YOU JUST KILLED A ZOMBIE. HOPE YOU'RE READY FOR THE NEXT ROUND"<<endl;
-    p_health-=5;
+    p_health-=10;
+    store();
     intro2();
     return 0;
 }
@@ -449,10 +644,9 @@ int level2()
     cout<<"YES!!!!!!!!!!!!"<<endl;
     cout<<"YOU KILLED THE LEVEL 2 ZOMBIE"<<endl;
     p_health-=10;
-    level3();
+    store();
+    intro3();
 }
-
-
 int level3()
 {      
     G.count=0;
@@ -649,7 +843,6 @@ int practice()
         cout<<endl<<"THIS IS A RANDOM COMPUTER GENERATED NUMBER WHICH WILL CHANGE AFTER EVERY SHOT\n";
         if(p_attack=='e')
         {
-            cout<<"\nHI\n";
             z_health=0;
             return 0;
         }
