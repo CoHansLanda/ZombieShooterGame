@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 using namespace std;
 class Player
 {
@@ -231,6 +232,7 @@ int store()
             break;
         break;
     }
+    sleep(10);
 }
 void intro()
 {   
@@ -266,7 +268,7 @@ void intro()
         cin>>ch;
         if(ch=='n')
         {
-            level2();
+            level1();
         }
         else if(ch=='e')
         {
